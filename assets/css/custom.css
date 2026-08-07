@@ -1,0 +1,410 @@
+/* =====================================================================
+   custom.css — Enyinnia Clifford Tochi Portfolio
+   Loaded AFTER style.css. Restores/extends the template's intended dark
+   theme (the base theme was authored for a dark body background — see
+   .resume-wrap / .progress / .ftco-footer translucent-white panels) and
+   adds new components: timeline, certificates grid, flagship product
+   cards, project cards, badges, tech chips.
+   ===================================================================== */
+
+:root {
+  --bg: #0b0e14;
+  --bg-alt: #0e1320;
+  --panel: rgba(255, 255, 255, 0.06);
+  --panel-border: rgba(255, 255, 255, 0.12);
+  --panel-hover: rgba(255, 255, 255, 0.1);
+  --text: #eef1f7;
+  --text-muted: rgba(238, 241, 247, 0.72);
+  --text-faint: rgba(238, 241, 247, 0.5);
+  --accent: #ffbd39;
+  --accent-2: #38d6c0;
+  --vocate: #2fb8a4;
+  --vocate-2: #1c6f9c;
+  --cura-1: #3b6fe0;
+  --cura-2: #b23bbf;
+  --cura-3: #ff8a3d;
+  --radius: 10px;
+  --shadow: 0 20px 50px -25px rgba(0, 0, 0, 0.6);
+}
+
+/* ---------- base / global text repair ---------- */
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+h1, h2, h3, h4, h5, h6,
+p, span, li, label, small, strong {
+  color: inherit;
+}
+
+a { color: var(--accent); }
+a:hover, a:focus { color: #fff; }
+
+::selection { background: var(--accent); color: #0b0e14; }
+
+.heading-section .subheading { color: var(--accent) !important; }
+.heading-section h2 { color: var(--text) !important; }
+.heading-section p { color: var(--text-muted) !important; }
+.heading-section h1.big { color: rgba(255, 255, 255, 0.05) !important; }
+
+/* ---------- nav ---------- */
+#ftco-navbar h2,
+#ftco-navbar .navbar-brand {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: .3px;
+}
+#ftco-navbar .navbar-brand small {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ---------- eyebrow / badge / chip utilities ---------- */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: .5em;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: .8em;
+}
+
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: .5em;
+  padding: .5em 1.1em;
+  border-radius: 999px;
+  border: 1px solid var(--panel-border);
+  background: var(--panel);
+  color: var(--text);
+  font-size: 13.5px;
+  font-weight: 500;
+}
+.badge-pill i { color: var(--accent); }
+
+.tech-chips { display: flex; flex-wrap: wrap; gap: .45em; margin-top: 1em; }
+.tech-chip {
+  font-size: 12px;
+  font-weight: 500;
+  padding: .35em .85em;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.section-intro { max-width: 720px; }
+
+/* ---------- hero extras ---------- */
+#typing-animation {
+  display: inline-block;
+  min-height: 1.4em;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+}
+/* .slider-text p is styled near-black by the base template (designed for
+   a light hero background image) — override with higher specificity so
+   the tagline reads correctly on our dark hero. */
+.slider-text p.hero-tagline,
+.owl-carousel.home-slider .slider-item .slider-text p.hero-tagline {
+  color: var(--text-muted) !important;
+}
+.hero-tagline {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 640px;
+}
+.hero-badges { display: flex; flex-wrap: wrap; gap: .6em; margin: 1.4em 0; }
+.slider-text .btn-outline-accent {
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+}
+.slider-text .btn-outline-accent:hover { background: var(--accent); color: #1a1200; }
+
+/* ---------- about ---------- */
+.about-panel {
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+  background: var(--panel);
+}
+.about-info li { display: flex; }
+.about-info li span:first-child { color: var(--accent) !important; }
+.about-info li span:last-child { color: var(--text-muted); }
+
+.skill-mf .progress { background: rgba(255, 255, 255, 0.08); }
+.skill-mf span { color: var(--text); }
+.skill-mf .pull-right { color: var(--text-faint); font-size: 13px; }
+
+/* ---------- timeline (experience) ---------- */
+.timeline { position: relative; margin-top: 1rem; }
+.timeline:before {
+  content: '';
+  position: absolute;
+  left: 13px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent), rgba(255, 189, 57, 0.08));
+}
+.timeline-item { position: relative; padding: 0 0 2.6rem 3rem; }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-dot {
+  position: absolute;
+  left: 5px;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 3px solid var(--accent);
+}
+.timeline-card {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  padding: 1.6rem 1.8rem;
+  transition: border-color .2s ease, background .2s ease;
+}
+.timeline-card:hover { background: var(--panel-hover); border-color: rgba(255, 189, 57, 0.35); }
+.timeline-period {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: .5rem;
+}
+.timeline-card h3 { font-size: 22px; margin: 0 0 .2rem; color: #fff; }
+.timeline-card .role-meta {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  display: block;
+}
+.timeline-card ul { margin: 0; padding-left: 1.15rem; }
+.timeline-card ul li {
+  color: var(--text-muted);
+  margin-bottom: .55rem;
+  line-height: 1.55;
+  font-size: 15px;
+}
+.timeline-card ul li::marker { color: var(--accent); }
+.timeline-subgroup { margin-top: 1rem; }
+.timeline-subgroup h4 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #fff;
+  margin-bottom: .5rem;
+}
+
+/* ---------- certificates ---------- */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+.cert-card {
+  display: block;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+  height: 100%;
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+  text-decoration: none;
+}
+a.cert-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 189, 57, 0.45);
+  background: var(--panel-hover);
+}
+.cert-card .cert-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 189, 57, 0.12);
+  color: var(--accent);
+  font-size: 18px;
+  margin-bottom: 1rem;
+}
+.cert-card h3 { font-size: 17px; color: #fff; margin: 0 0 .3rem; line-height: 1.35; }
+.cert-card .cert-issuer { font-size: 13.5px; color: var(--text-muted); margin-bottom: .2rem; display: block; }
+.cert-card .cert-date { font-size: 12.5px; color: var(--text-faint); display: block; margin-bottom: .8rem; }
+.cert-card .cert-link { font-size: 13px; font-weight: 600; color: var(--accent); }
+.cert-card .cert-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  color: var(--text-faint);
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  padding: .25em .75em;
+}
+
+/* ---------- flagship products (Vocate / Cura) ---------- */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.75rem;
+  margin-top: 1rem;
+}
+.product-card {
+  position: relative;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  box-shadow: var(--shadow);
+}
+.product-card.is-vocate { --g1: var(--vocate); --g2: var(--vocate-2); }
+.product-card.is-cura { --g1: var(--cura-1); --g2: var(--cura-3); }
+.product-card-inner {
+  background: #0d1119;
+  border-radius: 14px;
+  padding: 2rem;
+  height: 100%;
+}
+.product-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; }
+.product-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  font-weight: 800;
+  font-size: 22px;
+}
+.product-logo img { width: 100%; height: 100%; object-fit: contain; }
+.is-vocate .product-logo { background: linear-gradient(135deg, var(--vocate), var(--vocate-2)); color: #fff; }
+.is-cura .product-logo { background: linear-gradient(135deg, var(--cura-1), var(--cura-2) 55%, var(--cura-3)); color: #fff; }
+.product-head h3 { margin: 0; font-size: 24px; color: #fff; }
+.product-head .product-tagline { font-size: 13.5px; color: var(--text-faint); }
+.product-card p.product-desc { color: var(--text-muted); line-height: 1.7; font-size: 15px; }
+.product-card ul.product-points { margin: 1rem 0 0; padding-left: 1.1rem; }
+.product-card ul.product-points li { color: var(--text-muted); font-size: 14.5px; margin-bottom: .5rem; line-height: 1.6; }
+.product-card ul.product-points li::marker { color: var(--accent); }
+.product-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .5em;
+  margin-top: 1.4rem;
+  font-weight: 600;
+  font-size: 14.5px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: .6em 1.3em;
+  border-radius: 8px;
+  transition: background .2s ease, border-color .2s ease;
+}
+.product-cta:hover { background: rgba(255, 255, 255, 0.12); color: #fff; border-color: rgba(255, 255, 255, 0.5); }
+
+/* ---------- projects grid ---------- */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.75rem;
+  margin-top: 1rem;
+}
+.project-card {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform .2s ease, border-color .2s ease;
+}
+.project-card:hover { transform: translateY(-4px); border-color: rgba(255, 189, 57, 0.35); }
+.project-thumb {
+  height: 170px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.project-thumb .zoom-effect { position: absolute; inset: 0; transition: transform .35s ease; background-size: cover; background-position: center; }
+.project-card:hover .zoom-effect { transform: scale(1.08); }
+.project-thumb-icon {
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  color: rgba(255, 255, 255, 0.85);
+  background: linear-gradient(135deg, #1c2333, #0d1119);
+}
+.project-body { padding: 1.4rem; display: flex; flex-direction: column; flex: 1; }
+.project-body .status-badge {
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  padding: .25em .7em;
+  border-radius: 999px;
+  margin-bottom: .7rem;
+}
+.status-badge.live { background: rgba(56, 214, 192, 0.15); color: var(--accent-2); }
+.status-badge.progress { background: rgba(255, 189, 57, 0.15); color: var(--accent); }
+.project-body h3 { font-size: 19px; margin: 0 0 .6rem; }
+.project-body h3 a { color: #fff; }
+.project-body h3 a:hover { color: var(--accent); }
+.project-body p { color: var(--text-muted); font-size: 14.5px; line-height: 1.65; flex: 1; }
+.project-body .project-link {
+  margin-top: 1rem;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* ---------- contact ---------- */
+.contact-section .box {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+}
+.contact-section .box h3 { color: #fff; }
+.contact-section .box p, .contact-section .box p a { color: var(--text-muted); }
+.contact-note { color: var(--text-muted); font-size: 14.5px; max-width: 560px; margin: 0 auto; }
+
+/* ---------- footer ---------- */
+.ftco-footer-social li a { background: rgba(255, 255, 255, 0.08); }
+.footer-credit { color: var(--text-faint); font-size: 13px; }
+
+/* ---------- misc ---------- */
+.zoom-effect { overflow: hidden; transition: transform 0.3s ease-out; }
+.section-divider { height: 1px; background: var(--panel-border); border: none; margin: 3rem 0; }
+
+@media (max-width: 767.98px) {
+  .timeline:before { left: 9px; }
+  .timeline-item { padding-left: 2.2rem; }
+  .timeline-dot { width: 14px; height: 14px; left: 3px; }
+}
