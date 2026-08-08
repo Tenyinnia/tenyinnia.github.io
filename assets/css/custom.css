@@ -34,6 +34,11 @@
 html { scroll-behavior: smooth; }
 
 body {
+  /* This template has repeatedly proven willing to let one oversized
+     inline-block (see #typing-animation) drag its ancestors wider than
+     the viewport on narrow screens. Belt-and-suspenders: never let a
+     stray overflow turn into a horizontally-scrollable page. */
+  overflow-x: hidden;
   background-color: var(--bg);
   background-image:
     radial-gradient(1100px 620px at 12% -8%, rgba(232, 168, 56, 0.07), transparent 60%),
@@ -157,15 +162,40 @@ a:hover, a:focus { color: #fff; }
 @media (max-width: 767.98px) {
   .hero .slider-text .text { padding-top: 100px; }
 }
+/* Below 992px .one-forth becomes a flex container (align-items:center) and
+   its lone child .text has no width rule from the base template at all
+   (that only ships at >=992px) — as a flex item .text sized itself to its
+   own max-content instead of the viewport, letting the long tagline push
+   everything wider than the screen. Force it to actually fit. */
+@media (max-width: 991.98px) {
+  .hero .one-forth,
+  .hero .one-forth .text {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .hero .one-forth .text { padding: 0 24px; }
+}
 
 /* ---------- hero extras ---------- */
 #typing-animation {
   display: inline-block;
   min-height: 1.4em;
+  max-width: 100%;
   font-size: 26px;
   font-weight: 600;
   color: var(--accent);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+}
+@media (max-width: 575.98px) {
+  /* nowrap keeps the typing effect from reflowing line-by-line as it
+     types, but on very narrow phones even the shortest phrase can't fit
+     on one line — let it wrap there rather than clip or, worse, force
+     the whole hero wider than the viewport. */
+  #typing-animation { white-space: normal; font-size: 22px; }
 }
 /* .slider-text p is styled near-black by the base template (designed for
    a light hero background image) — override with higher specificity so
