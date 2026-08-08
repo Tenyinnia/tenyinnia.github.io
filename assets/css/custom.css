@@ -8,23 +8,26 @@
    ===================================================================== */
 
 :root {
-  --bg: #0b0e14;
-  --bg-alt: #0e1320;
-  --panel: rgba(255, 255, 255, 0.06);
-  --panel-border: rgba(255, 255, 255, 0.12);
-  --panel-hover: rgba(255, 255, 255, 0.1);
+  --bg: #090b10;
+  --bg-alt: #0d1017;
+  --panel: rgba(255, 255, 255, 0.05);
+  --panel-border: rgba(255, 255, 255, 0.1);
+  --panel-hover: rgba(255, 255, 255, 0.085);
   --text: #eef1f7;
-  --text-muted: rgba(238, 241, 247, 0.72);
-  --text-faint: rgba(238, 241, 247, 0.5);
+  --text-muted: rgba(238, 241, 247, 0.7);
+  --text-faint: rgba(238, 241, 247, 0.48);
   --accent: #ffbd39;
-  --accent-2: #38d6c0;
+  --accent-soft: rgba(255, 189, 57, 0.14);
+  --accent-2: #3fb8c9;
+  --accent-2-soft: rgba(63, 184, 201, 0.14);
   --vocate: #2fb8a4;
   --vocate-2: #1c6f9c;
   --cura-1: #3b6fe0;
   --cura-2: #b23bbf;
   --cura-3: #ff8a3d;
   --radius: 10px;
-  --shadow: 0 20px 50px -25px rgba(0, 0, 0, 0.6);
+  --shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.65);
+  --shadow-lift: 0 28px 70px -24px rgba(0, 0, 0, 0.75);
 }
 
 /* ---------- base / global text repair ---------- */
@@ -32,8 +35,16 @@ html { scroll-behavior: smooth; }
 
 body {
   background-color: var(--bg);
+  background-image:
+    radial-gradient(1100px 620px at 12% -8%, rgba(232, 168, 56, 0.07), transparent 60%),
+    radial-gradient(900px 560px at 100% 8%, rgba(63, 184, 201, 0.06), transparent 55%),
+    radial-gradient(1200px 700px at 50% 115%, rgba(63, 111, 224, 0.05), transparent 60%);
+  background-attachment: fixed;
   color: var(--text);
 }
+
+/* subtle alternating section tone for rhythm, applied selectively via HTML */
+.section-alt { background-color: var(--bg-alt); }
 
 h1, h2, h3, h4, h5, h6,
 p, span, li, label, small, strong {
@@ -46,9 +57,16 @@ a:hover, a:focus { color: #fff; }
 ::selection { background: var(--accent); color: #0b0e14; }
 
 .heading-section .subheading { color: var(--accent) !important; }
-.heading-section h2 { color: var(--text) !important; }
+.heading-section h2 { color: var(--text) !important; letter-spacing: -.01em; }
 .heading-section p { color: var(--text-muted) !important; }
-.heading-section h1.big { color: rgba(255, 255, 255, 0.05) !important; }
+/* the base template's giant background "ghost" heading reads as stock-template
+   filler at full strength — keep it as a faint, small texture instead */
+.heading-section h1.big {
+  color: rgba(255, 255, 255, 0.025) !important;
+  font-size: 5.5vw !important;
+  top: -.15em !important;
+}
+.heading-section { padding-top: .2em; }
 
 /* ---------- nav ---------- */
 #ftco-navbar h2,
@@ -72,24 +90,33 @@ a:hover, a:focus { color: #fff; }
 .kicker {
   display: inline-flex;
   align-items: center;
-  gap: .5em;
+  gap: .6em;
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
   color: var(--accent);
   margin-bottom: .8em;
 }
+.kicker::before {
+  content: '';
+  display: inline-block;
+  width: 22px;
+  height: 1.5px;
+  background: linear-gradient(to right, var(--accent), transparent);
+}
+.text-center .kicker { justify-content: center; }
 
 .badge-pill {
   display: inline-flex;
   align-items: center;
-  gap: .5em;
+  gap: .55em;
   padding: .5em 1.1em;
   border-radius: 999px;
-  border: 1px solid var(--panel-border);
-  background: var(--panel);
-  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(6px);
+  color: var(--text-muted);
   font-size: 13.5px;
   font-weight: 500;
 }
@@ -108,6 +135,28 @@ a:hover, a:focus { color: #fff; }
 }
 
 .section-intro { max-width: 720px; }
+
+/* Owl Carousel ships display:none by default and only reveals itself once
+   its JS adds .owl-loaded (or .owl-loading, which is opacity:0 in the
+   meantime) — a real "blank hero if JS is slow/blocked" bug, not just a
+   cosmetic animation. With a single hero slide there's no carousel
+   behaviour to lose, so first paint shouldn't depend on that JS timing. */
+.home-slider.owl-carousel {
+  display: block !important;
+  opacity: 1 !important;
+}
+/* .js-fullheight normally gets its height set only via JS ($(window).height());
+   give it a non-JS fallback so it never silently collapses. */
+.js-fullheight { min-height: 100%; }
+
+/* The hero text sits in normal flow at the top of a 750px-tall slide while
+   the nav floats position:absolute over it — nothing here ever pushed the
+   text down to clear the nav (only Owl Carousel's now-removed obstruction
+   coincidentally hid the collision). Give it real clearance instead. */
+.hero .slider-text .text { padding-top: 130px; }
+@media (max-width: 767.98px) {
+  .hero .slider-text .text { padding-top: 100px; }
+}
 
 /* ---------- hero extras ---------- */
 #typing-animation {
@@ -184,7 +233,7 @@ a:hover, a:focus { color: #fff; }
   padding: 1.6rem 1.8rem;
   transition: border-color .2s ease, background .2s ease;
 }
-.timeline-card:hover { background: var(--panel-hover); border-color: rgba(255, 189, 57, 0.35); }
+.timeline-card:hover { background: var(--panel-hover); border-color: rgba(255, 189, 57, 0.28); box-shadow: var(--shadow); }
 .timeline-period {
   display: inline-block;
   font-weight: 700;
@@ -247,11 +296,16 @@ a.cert-card:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 189, 57, 0.12);
+  background: var(--accent-soft);
   color: var(--accent);
   font-size: 18px;
   margin-bottom: 1rem;
 }
+/* a little tonal variety keeps a grid of 8+ identical cards from feeling
+   like a template repeat — each cert gets a deliberate hue by discipline */
+.cert-card .cert-icon.tone-blue { background: rgba(59, 111, 224, 0.14); color: #6f96f2; }
+.cert-card .cert-icon.tone-teal { background: var(--accent-2-soft); color: var(--accent-2); }
+.cert-card .cert-icon.tone-violet { background: rgba(178, 59, 191, 0.14); color: #c977d6; }
 .cert-card h3 { font-size: 17px; color: #fff; margin: 0 0 .3rem; line-height: 1.35; }
 .cert-card .cert-issuer { font-size: 13.5px; color: var(--text-muted); margin-bottom: .2rem; display: block; }
 .cert-card .cert-date { font-size: 12.5px; color: var(--text-faint); display: block; margin-bottom: .8rem; }
@@ -266,6 +320,31 @@ a.cert-card:hover {
   border-radius: 999px;
   padding: .25em .75em;
 }
+a.cert-card:hover { box-shadow: var(--shadow); }
+
+/* cover variant — used for the one or two certs worth visually leading with */
+.cert-card.has-cover { padding: 0; overflow: hidden; }
+.cert-card.has-cover .cert-cover {
+  height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: rgba(255, 255, 255, 0.92);
+  background: linear-gradient(135deg, #6d28d9, #2563eb 60%, #0891b2);
+  position: relative;
+  overflow: hidden;
+}
+.cert-card.has-cover .cert-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.35) 1px, transparent 1px);
+  background-size: 14px 14px;
+  opacity: .18;
+}
+.cert-card.has-cover .cert-cover i { position: relative; z-index: 1; }
+.cert-card.has-cover .cert-body { padding: 1.4rem; }
 
 /* ---------- flagship products (Vocate / Cura) ---------- */
 .product-grid {
@@ -280,7 +359,9 @@ a.cert-card:hover {
   padding: 2px;
   background: linear-gradient(135deg, var(--g1), var(--g2));
   box-shadow: var(--shadow);
+  transition: box-shadow .25s ease, transform .25s ease;
 }
+.product-card:hover { box-shadow: var(--shadow-lift); transform: translateY(-3px); }
 .product-card.is-vocate { --g1: var(--vocate); --g2: var(--vocate-2); }
 .product-card.is-cura { --g1: var(--cura-1); --g2: var(--cura-3); }
 .product-card-inner {
@@ -343,7 +424,7 @@ a.cert-card:hover {
   flex-direction: column;
   transition: transform .2s ease, border-color .2s ease;
 }
-.project-card:hover { transform: translateY(-4px); border-color: rgba(255, 189, 57, 0.35); }
+.project-card:hover { transform: translateY(-4px); border-color: rgba(255, 189, 57, 0.3); box-shadow: var(--shadow); }
 .project-thumb {
   height: 170px;
   background-size: cover;

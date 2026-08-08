@@ -107,7 +107,13 @@ AOS.init({
        }
        });
    };
-   carousel();
+   // carousel() is intentionally not called: the hero only ever has a
+   // single .slider-item, so Owl Carousel's loop:true cloning/positioning
+   // has nothing real to do and was intermittently mispositioning the
+   // (only) slide off-stage. The .owl-carousel/.home-slider classes stay
+   // on the markup purely so the existing CSS (height, background-size,
+   // overlay) still applies; see custom.css for the static, JS-free height.
+   // carousel();
 
    $('nav .dropdown').hover(function(){
        var $this = $(this);
