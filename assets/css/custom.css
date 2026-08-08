@@ -47,6 +47,12 @@ body {
   background-attachment: fixed;
   color: var(--text);
 }
+@media (max-width: 991.98px) {
+  /* background-attachment:fixed is a known source of janky/broken
+     rendering on mobile Safari and some mobile Chrome builds; it's a
+     decorative touch, not worth risking on touch devices. */
+  body { background-attachment: scroll; }
+}
 
 /* subtle alternating section tone for rhythm, applied selectively via HTML */
 .section-alt { background-color: var(--bg-alt); }
@@ -120,6 +126,7 @@ a:hover, a:focus { color: #fff; }
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.035);
+  -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   color: var(--text-muted);
   font-size: 13.5px;
