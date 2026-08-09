@@ -304,6 +304,17 @@ a:hover, a:focus { color: #fff; }
   margin-bottom: .5rem;
 }
 
+/* in-section subsection headers (e.g. "Education" inside Experience) —
+   the base template's .big-4 (transform:scaleX(1.2)) + full-width rainbow
+   .underline bar reads as an unrelated leftover next to this page's actual
+   heading system; keep it plain and consistent with the kicker instead. */
+.subsection-heading {
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 1.8rem;
+}
+
 /* ---------- certificates ---------- */
 .cert-grid {
   display: grid;
